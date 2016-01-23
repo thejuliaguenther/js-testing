@@ -34,17 +34,20 @@ describe("Tic Tac JS", function () {
 //     Add the following tests, or think of some of your own.
 
    it ("should update the board correctly based on the board", function () {
-       board = ["X", "O", null, null, null, null, null, null, null];
-       makeHumanMove(2);
-       updatedBoard = ["X", "O", "X", "O", null, null, null, null, null];
-       expect(board).toEqual(updatedBoard);
+       board = ["X", null, null, "O", null, null, null, null, "X"];
+       updateBoard();
+       var cell0 = $("#cell-0").text();
+       var cell3 = $("#cell-3").text();
+       var cell8 = $("#cell-8").text();
+       expect(cell0).toEqual("X");
+       expect(cell3).toEqual("O");
+       expect(cell8).toEqual("X");
    });
    
    it ("should not fill in board slots that are already occupied", function () {
+    //placePiece returns False when the slot is already occupied 
        board = ["O", "O", null, null, null, null, null, "X", "X"];
-       makeHumanMove(2);
-       updatedBoard = ["O", "X", "O", null, null, null, null, "X", "X"];
-       expect(board).not.toEqual(updatedBoard);
+       expect(placePiece(1,"X")).toBeFalsy();
    });
    
    it ("should be able to determine a winner", function () {
